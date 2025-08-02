@@ -31,6 +31,13 @@ export class PipelineTemplateV2Service {
   public static isV2PipelineConfig(pipelineConfig: Partial<IPipeline>): boolean {
     return pipelineConfig.schema === PipelineTemplateV2Service.schema;
   }
+  
+  public static isV2TemplatePipeline(pipelineConfig: Partial<IPipeline>): boolean {
+    return pipelineConfig && 
+      pipelineConfig.type === 'templatedPipeline' && 
+      pipelineConfig.template && 
+      pipelineConfig.schema === PipelineTemplateV2Service.schema;
+  }
 
   public static idForTemplate(template: { id: string; digest?: string }): string {
     const { id, digest = '' } = template;

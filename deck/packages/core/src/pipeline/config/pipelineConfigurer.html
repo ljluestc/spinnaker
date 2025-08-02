@@ -95,6 +95,11 @@
           on-node-click="(pipelineConfigurerCtrl.graphNodeClicked)"
         ></pipeline-graph>
       </div>
+      <div ng-if="pipelineConfigurerCtrl.getTemplateIndicator().hasTemplateIndicator" class="label-tag template-indicator">
+        <a ng-href="{{pipelineConfigurerCtrl.getTemplateLink()}}" title="This pipeline is based on an MPT v2 Template">
+          <i class="fa fa-file-code-o"></i> MPT v2 Template
+        </a>
+      </div>
       <div class="row">
         <div class="col-md-8">
           <button

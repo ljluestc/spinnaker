@@ -19,9 +19,28 @@
     .link--create {
       margin-left: 1rem;
     }
+
+    .highlighted-template {
+      background-color: rgba(255, 255, 0, 0.2);
+      font-weight: bold;
+
+      td {
+        border-top: 1px solid rgba(255, 200, 0, 0.6);
+        border-bottom: 1px solid rgba(255, 200, 0, 0.6);
+      }
+    }
   }
 
   &__template-versions {
     min-width: 300px;
+  }
+
+  tr.highlighted {
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+
+    td {
+      font-weight: bold;
+    }
   }
 }

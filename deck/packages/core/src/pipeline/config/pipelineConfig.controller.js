@@ -44,6 +44,7 @@ module(CORE_PIPELINE_CONFIG_PIPELINECONFIG_CONTROLLER, [UIROUTER_ANGULARJS]).con
       if (this.pipelineConfig && this.pipelineConfig.type === 'templatedPipeline') {
         this.isTemplatedPipeline = true;
         this.isV2TemplatedPipeline = isV2PipelineConfig;
+        $scope.isV2TemplatedPipeline = isV2PipelineConfig;
         this.hasDynamicSource =
           !isV2PipelineConfig && this.containsJinja(this.pipelineConfig.config.pipeline.template.source);
 
@@ -64,6 +65,7 @@ module(CORE_PIPELINE_CONFIG_PIPELINECONFIG_CONTROLLER, [UIROUTER_ANGULARJS]).con
         if (!this.pipelineConfig) {
           this.state.notFound = true;
         }
+        this.isTemplated = PipelineTemplateV2Service.isV2TemplatePipeline(this.pipelineConfig);
       }
       if (this.pipelineConfig) {
         this.pipelineConfig = _.cloneDeep(this.pipelineConfig);

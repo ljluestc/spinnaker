@@ -31,6 +31,7 @@ export interface IPipelineTemplatesV2State {
   selectedTemplate: IPipelineTemplateV2;
   templateVersionSelections: IPipelineTemplateV2VersionSelections;
   templates: IPipelineTemplateV2Collections;
+  highlightedTemplateVersion?: string;
 }
 
 export const PipelineTemplatesV2Error = (props: { message: string }) => {
@@ -57,6 +58,12 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
   public componentDidMount() {
     this.fetchTemplates();
     this.routeChangedSubscription = ReactInjector.stateEvents.stateChangeSuccess.subscribe(this.onRouteChanged);
+    
+    // Check if we have a templateId parameter to highlight a specific template
+    const { templateId } = ReactInjector.$stateParams;
+    if (templateId) {
+      this.setState({ highlightedTemplateVersion: templateId });
+    }
   }
 
   public componentWillUnmount() {
@@ -243,8 +250,9 @@ export class PipelineTemplatesV2 extends React.Component<{}, IPipelineTemplatesV
                     );
                     const { metadata } = currentTemplate;
 
+                    const isHighlighted = templateVersion === this.state.highlightedTemplateVersion;
                     return (
-                      <tr key={templateVersion}>
+                      <tr key={templateVersion} className={isHighlighted ? 'highlighted' : ''}>
                         <td className="templates-table__template-name">{metadata.name || '-'}</td>
                         <td>{metadata.owner || '-'}</td>
                         <td>{this.getUpdateTimeForTemplate(currentTemplate) || '-'}</td>

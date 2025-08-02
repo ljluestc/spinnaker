@@ -128,6 +128,27 @@ angular
           .catch(() => {});
       };
 
+      $scope.getTemplateIndicator = function() {
+        if (PipelineTemplateV2Service.isV2TemplatePipeline($scope.pipeline) && $scope.pipeline.template && $scope.pipeline.template.id) {
+          return {
+            templateId: $scope.pipeline.template.id,
+            hasTemplateIndicator: true
+          };
+        }
+        return { hasTemplateIndicator: false };
+      };
+      
+      $scope.getTemplateLink = function() {
+        const templateInfo = $scope.getTemplateIndicator();
+        if (templateInfo.hasTemplateIndicator) {
+          return $state.href('home.applications.application.pipelines.templates', {
+            application: $scope.application.name,
+            templateId: templateInfo.templateId
+          });
+        }
+        return null;
+      };
+      
       $scope.stageSortOptions = {
         axis: 'x',
         delay: 150,
